@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Caixa Eletrônico</title>
+    <script>
+      let saldo = 100.5;
+      let nome = prompt("Olá bem-vindo, qual o seu nome?");
+      let senha = prompt("Informe sua senha");
+      let escolha;
+      let deposito;
+      let saque;
+      let seguranca;
+
+      if (senha == 3589) {
+        alert("Olá " + nome + " é um prazer ter você por aqui");
+        function inicio() {
+          escolha = parseInt(
+            prompt(
+              "Selecione uma opção: \n 1.) Saldo \n 2.) Extrato bancario \n 3.) Saque \n 4.) Depósito \n 5.) Transferência \n 6.) Sair"
+            )
+          );
+          switch (escolha) {
+            case 1:
+              Segurança();
+              ver_saldo();
+              break;
+
+            case 2:
+              Segurança();
+              ver_extrato();
+              break;
+
+            case 3:
+              Segurança();
+              fazer_saque();
+              break;
+
+            case 4:
+              Segurança();
+              fazer_deposito();
+              break;
+
+            case 5:
+              Segurança();
+              fazer_transferencia();
+              break;
+
+            case 6:
+              sair();
+              break;
+
+            default:
+              erro();
+              break;
+          }
+        }
+      } else {
+        alert("Senha Incorreta");
+        inicio();
+      }
+
+      function ver_saldo() {
+        alert(
+          "Seu saldo atual é " +
+            new Intl.NumberFormat("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            }).format(saldo)
+        );
+        inicio();
+      }
+
+      function ver_extrato() {
+        alert(
+          "EXTRATO BANCARIO \n---------------------------- \n\nDATA: 15/02/2023 \nDESCRIÇÃO: Nike Brasil \nVALOR: R$4.199,00 Reais \n\n -------------- \nDATA: 01/03/2023 \nDESCRIÇÃO: Playstation Brasil \nVALOR: R$7.340,90 Reais \n\n -------------- \nDATA: 25/08/2023 \nDESCRIÇÃO: Porseche Ferdinand \nVALOR: R$678.000,00 Reais"
+        );
+      }
+
+      function fazer_saque() {
+        saque = parseFloat(prompt("Qual o valor para saque?"));
+
+        if (isNaN(saque) || saque <= 0) {
+          alert("Por favor, informe um valor corretamente.");
+          fazer_saque();
+        } else {
+          if (saque <= saldo) {
+            alert("Saldo realizado com sucesso");
+            saldo -= saque;
+          } else alert("Operação não autorizada, Saldo insuficiente!");
+
+          ver_saldo();
+        }
+      }
+
+      function fazer_deposito() {
+        deposito = parseFloat(prompt("Qual o valor para depósito?"));
+
+        // Not a Number --> Isso é um não-número?
+        if (isNaN(deposito) || deposito <= 0) {
+          alert("Operação não autorizada");
+          fazer_deposito();
+        } else {
+          saldo += deposito;
+          ver_saldo();
+        }
+      }
+
+      function fazer_transferencia() {
+        let retirada = parseFloat(
+          prompt("Qual o valor que você deseja transferir?")
+        );
+        let conta = parseInt(prompt("Qual o número da conta?"));
+
+        if (isNaN(retirada) || retirada <= 0) {
+          alert(
+            "Por favor, informe um valor válido e maior que zero para a transferência."
+          );
+          fazer_transferencia();
+          return;
+        }
+
+        if (saldo >= retirada) {
+          alert("Transferência realizada com sucesso");
+          saldo -= retirada;
+          inicio();
+        } else {
+          alert(
+            "Você não tem saldo suficiente, seu saldo atual é de: " +
+              new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              }).format(saldo)
+          );
+        }
+      }
+
+      function Segurança() {
+        seguranca = parseInt(prompt("Informe sua senha para Continuar"));
+        if (seguranca == 3589) {
+          if (escolha == 1) {
+            ver_saldo();
+          }
+          if (escolha == 2) {
+            ver_extrato();
+          }
+          if (escolha == 3) {
+            fazer_saque();
+          }
+          if (escolha == 4) {
+            fazer_deposito();
+          }
+          if (escolha == 5) {
+            fazer_transferencia();
+          }
+        } else alert("Senha incorreta");
+        inicio();
+      }
+
+      function erro() {
+        alert("Por favor, informe um número entre 1 e 6.");
+        inicio();
+      }
+
+      function sair() {
+        var confirma = confirm("Você deseja sair?");
+        if (confirma) {
+          alert(
+            "Obrigado por utilizar os serviços KLuxuryBank® foi um prazer ter você por aqui!"
+          );
+          window.close();
+        } else {
+          inicio();
+        }
+      }
+
+      inicio();
+    </script>
+  </head>
+  <body></body>
+</html>
